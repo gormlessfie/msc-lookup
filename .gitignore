@@ -1,2 +1,5 @@
 # Ignore output folder
 output/
+
+# Ignore .geckodriver logs
+geckodriver.log
