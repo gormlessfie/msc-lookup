@@ -3,3 +3,6 @@ output/
 
 # Ignore .geckodriver logs
 geckodriver.log
+
+# Ignore list.txt
+list.txt
