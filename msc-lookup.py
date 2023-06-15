@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from openpyxl import Workbook
-from datetime import date
+from datetime import datetime
 
 def click_booking_number(driver):
     # find & click booking number
@@ -48,26 +48,45 @@ def clear_input_box(driver):
     input_box = driver.find_element(By.XPATH, "//input[@id='trackingNumber']")
     input_box.clear()
 
+def format_date(date):
+    # Parse the input string into a datetime object
+    date_object = datetime.strptime(date, "%d/%m/%Y")
 
-# obtain eta date
-# put eta date into list
-# create excel worksheet (openpyxl)
-# append date into worksheet
- 
+    # Format the date as "month/day"
+    formatted_date = date_object.strftime("%m/%d").replace("0", "")
+    return formatted_date
+
+# Setup excel workbook
+workbook = Workbook()
+worksheet = workbook.active
+worksheet.title = "Shipping Date Changes"
+
 
 # Create a new instance of the Firefox driver
 driver = webdriver.Firefox()
-
-# Open the website
 driver.get('https://www.msc.com/en/track-a-shipment')
 
+# Get list of MSC tracking numbers
 list_tracking_numbers = open("list.txt", "r").readlines()
 
+# Select booking number search option
 click_booking_number(driver)
 
 for entry in list_tracking_numbers: 
     fill_input(driver, entry)
-    print(retrieve_date_info(driver))
+    date = retrieve_date_info(driver)
+    try:
+        date = format_date(date)
+    except ValueError:
+        date = "No ETA Found"
+    entry = entry.strip()
+    row = [entry, date]
+    
+    # append row into worksheet
+    worksheet.append(row)
+    
     clear_input_box(driver)
+
+workbook.save("msc_shipping_dates_changes.xlsx")
 
 driver.close()
