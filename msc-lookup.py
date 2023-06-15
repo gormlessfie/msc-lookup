@@ -87,6 +87,6 @@ for entry in list_tracking_numbers:
     
     clear_input_box(driver)
 
-workbook.save("msc_shipping_dates_changes.xlsx")
+workbook.save("output/msc_shipping_dates_changes.xlsx")
 
 driver.close()
