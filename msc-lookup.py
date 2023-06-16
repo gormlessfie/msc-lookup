@@ -67,7 +67,7 @@ driver = webdriver.Firefox()
 driver.get('https://www.msc.com/en/track-a-shipment')
 
 # Get list of MSC tracking numbers
-list_tracking_numbers = open("list.txt", "r").readlines()
+list_tracking_numbers = open("list-trackers.txt", "r").readlines()
 
 # Select booking number search option
 click_booking_number(driver)

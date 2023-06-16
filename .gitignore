@@ -4,5 +4,5 @@ output/
 # Ignore .geckodriver logs
 geckodriver.log
 
-# Ignore list.txt
-list.txt
+# Ignore list-trackers.txt
+list-trackers.txt
