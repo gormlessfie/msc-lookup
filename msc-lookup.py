@@ -60,7 +60,7 @@ def format_date(date):
 workbook = Workbook()
 worksheet = workbook.active
 worksheet.title = "Shipping Date Changes"
-
+worksheet.column_dimensions['A'].width = 25
 
 # Create a new instance of the Firefox driver
 driver = webdriver.Firefox()
